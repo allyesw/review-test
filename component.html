@@ -1,19 +1,43 @@
 <!DOCTYPE html>
 <html>
-<body>
-<h2>HEADING</h2>
-<p id="divid"></p>
- 
-<script>
-var car_name = ["Mazda", "Volvo", "Nissan", "Ford", "Skoda", "Audi"];
-var string = "";
-var i;
-for (i = 0; i < car_name.length; i++) {
-string += car_name[i] + "<br>";
-}
-document.getElementById("divid").innerHTML = string;
-</script>
- 
-<script type="text/JavaScript" src="//static.parastorage.com/services/js-sdk/1.1120.0/js/wix.min.js"></script>
-</body>
+	<head>
+	  	<title>A Meaningful Page Title</title>
+	</head>
+	<body>
+
+	The content of the document......
+	<script>
+		  import wixApiClient from '@wix/api-client';
+		  import { cart } from '@wix/ecom';
+		  import { products } from '@wix/stores';
+
+		  const myWixClient = wixApiClient.createClient({
+		    modules: {
+		        cart,
+		        products
+		    }
+		  })
+		    
+		  myWixClient.setHeaders({ 
+		    Authorization: 'MY-TOKEN' 
+		  });
+		  
+		  // ...
+
+		  const cart = await myWixClient
+		    .cart
+		    .createCart({});
+		  
+		  // ...
+
+		  const { items } = await myWixClient
+		    .products
+		    .queryProducts()
+		    .startsWith('name', 'shoes')
+		    .limit(4)
+		    .find();
+	</script>
+
+	<script type="text/JavaScript" src="//static.parastorage.com/services/js-sdk/1.1120.0/js/wix.min.js"></script>
+	</body>
 </html>
